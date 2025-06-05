@@ -1,6 +1,7 @@
 # Notes on Recursion Functions (`subset.cpp`)
 
 ## 1. skip(p, up)
+
 **Purpose:**  
 Skips all occurrences of the character `'a'` in the string `up` and prints all possible results.
 
@@ -26,6 +27,7 @@ skip("", "baacde")
 ---
 
 ## 2. skip2(up)
+
 **Purpose:**  
 Returns a new string with all `'a'` characters removed from `up`.
 
@@ -42,11 +44,13 @@ skip2("baacde")
                     ├── 'e' + skip2("")
                         └── ""
 ```
+
 Result: `"bcde"`
 
 ---
 
 ## 3. skip3(up, given)
+
 **Purpose:**  
 Skips all occurrences of the substring `given` in `up`.
 
@@ -67,11 +71,13 @@ skip3("bascappleappfd", "apple")
                                     ├── 'd' + skip3("", "apple")
                                         └── ""
 ```
+
 Result: `"bascappfd"`
 
 ---
 
 ## 4. skip4(up, given, not_removed)
+
 **Purpose:**  
 Skips all occurrences of `given` **unless** they are part of `not_removed`.
 
@@ -94,11 +100,13 @@ skip4("bascappleappfd", "app", "apple")
                                             ├── 'd' + skip4("", ...)
                                                 └── ""
 ```
+
 Result: `"bascapplefd"`
 
 ---
 
 ## 5. subser(p, up)
+
 **Purpose:**  
 Prints all subsequences of `up` (including the empty string).
 
@@ -114,11 +122,13 @@ subser("", "ab")
     ├── subser("b", "")
     └── subser("", "")
 ```
+
 Printed: `ab`, `a`, `b`, `` (empty string)
 
 ---
 
 ## 6. subser1(p, up, arr)
+
 **Purpose:**  
 Stores all non-empty subsequences of `up` in `arr`.
 
@@ -199,6 +209,7 @@ Same as `subser`, but only non-empty results are stored.
 ---
 
 ## 7. subser2(p, up)
+
 **Purpose:**  
 Returns a vector of all non-empty subsequences of `up`.
 
@@ -243,15 +254,18 @@ all combined value.
 ---
 
 ## 8. print_sub_iter(string s)
+
 **Purpose:**  
 Prints all subsets (subsequences) of the string `s` using **bit masking** (iterative method).
 
 **How it works:**  
+
 - For a string of length `n`, there are `2^n` possible subsets.
 - Each subset is represented by a number from `0` to `2^n - 1`.
 - For each bit in the number, if the bit is set, include the corresponding character.
 
 **Example for `s = "abc"`:**  
+
 ```
 n = 3
 Subsets (b in binary):
@@ -265,7 +279,9 @@ Subsets (b in binary):
 110 -> "bc"
 111 -> "abc"
 ```
+
 So, output will be:
+
 ```
 (empty line)
 a
@@ -280,16 +296,19 @@ abc
 ---
 
 ## 9. print_sub_iter(vector<int> arr)
+
 **Purpose:**  
 Prints all subsets of the integer array `arr` using **bit masking** (iterative method).
 
 **How it works:**  
+
 - For an array of size `n`, there are `2^n` possible subsets.
 - Each subset is represented by a number from `0` to `2^n - 1`.
 - For each bit in the number, if the bit is set, include the corresponding element.
 
 **Example for `arr = {1, 2, 3}`:**  
-```
+
+```text
 n = 3
 Subsets (b in binary):
 
@@ -302,8 +321,10 @@ Subsets (b in binary):
 110 -> 2 3
 111 -> 1 2 3
 ```
+
 So, output will be:
-```
+
+```text
 (empty line)
 1
 2
@@ -317,16 +338,19 @@ So, output will be:
 ---
 
 ## 10. subsets (int index, vector<int>& nums, vector<int>& current, vector<vector<int>>& result)
+
 **Purpose:**  
 Generates all possible subsets (the power set) of the array `nums` using recursion and backtracking.
 
 **How it works:**  
+
 - At each index, you have two choices:  
   1. Exclude the current element and move to the next index.  
   2. Include the current element in the current subset and move to the next index.
 - When the index reaches the end of the array, the current subset is added to the result.
 
 **Recursion Tree Example for nums = [1, 2]:**
+
 ```
 subsets(0, [1,2], [], result)
 ├── Exclude 1: subsets(1, [1,2], [], result)
@@ -336,19 +360,23 @@ subsets(0, [1,2], [], result)
     ├── Exclude 2: subsets(2, [1,2], [1], result)  // [1]
     └── Include 2: subsets(2, [1,2], [1,2], result)// [1,2]
 ```
+
 **Result:** `[[], [2], [1], [1,2]]`
 
 ---
 
 ## 11. subsets2 (int index, vector<int>& nums, vector<int>& current, vector<vector<int>>& result)
+
 **Purpose:**  
 Generates all subsets, but adds the current subset to the result at every step (not just at the leaves).
 
 **How it works:**  
+
 - At each call, the current subset is added to the result.
 - Then, for each element from `index` to end, include it and recurse, then backtrack.
 
 **Recursion Tree Example for nums = [1, 2]:**
+
 ```
 subsets2(0, [1,2], [], result)
 ├── Add [] to result
@@ -362,20 +390,24 @@ subsets2(0, [1,2], [], result)
 │   ├── Add [2] to result
 │   └── Backtrack to []
 ```
+
 **Result:** `[[], [1], [1,2], [2]]`
 
 ---
 
 ## 12. subsets3 (int index, vector<int>& nums, vector<int>& current, vector<vector<int>>& result)
+
 **Purpose:**  
 Generates all unique subsets for arrays that may contain duplicates.
 
 **How it works:**  
+
 - Assumes `nums` is sorted.
 - At each index, skip elements that are the same as the previous one (to avoid duplicate subsets).
 - Otherwise, works like `subsets2`.
 
 **Recursion Tree Example for nums = [1, 2, 2]:**
+
 ```
 subsets3(0, [1,2,2], [], result)
 ├── Add [] to result
@@ -397,12 +429,98 @@ subsets3(0, [1,2,2], [], result)
 │   └── Backtrack to []
 ├── i=2: (skipped, nums[2]==nums[1])
 ```
+
 **Result:** `[[], [1], [1,2], [1,2,2], [2], [2,2]]`
 
 ---
+## Notes on `permuatations2`
+
+### Purpose
+Generates **all permutations** of a given string using recursion and returns them as a `vector<string>`.
+
+---
+
+### How It Works
+
+- **Parameters:**  
+  - `p`: The current permutation being built.
+  - `up`: The remaining characters to permute.
+
+- **Base Case:**  
+  - If `up` is empty:
+    - If `p` is not empty, return `{p}` (a vector containing the permutation).
+    - Else, return an empty vector.
+
+- **Recursive Step:**  
+  - For each possible position in `p` (from 0 to `p.size()`), insert the first character of `up` at that position.
+  - Recursively call `permuatations2` with the new string and the rest of `up`.
+  - Collect all returned permutations in a vector and return it.
+
+---
+
+### Example
+
+For `permuatations2("", "ab")`:
+
+- Insert `'a'` at all positions in `""` → `"a"`
+  - Insert `'b'` at all positions in `"a"` → `"ba"`, `"ab"`
+- Result: `["ba", "ab"]`
+
+---
+
+### Recursion Tree (for "ab")
+
+```
+permuatations2("", "ab")
+├── i=0: f="", s=""
+│   └── permuatations2("a", "b")
+│       ├── i=0: f="", s="a"
+│       │   └── permuatations2("ba", "")
+│       │       └── return ["ba"]
+│       ├── i=1: f="a", s=""
+│       │   └── permuatations2("ab", "")
+│       │       └── return ["ab"]
+│       └── returns ["ba", "ab"]
+└── returns ["ba", "ab"]
+```
+
+---
+```
+How temp.insert(...) Works
+At each level, the function collects all permutations from its recursive calls.
+
+For example, after the three recursive calls for "ba" and "ab", you have:
+For "ba":
+val = {"sba"} (first call)
+val = {"bsa"} (second call)
+val = {"bas"} (third call)
+temp becomes {"sba", "bsa", "bas"}
+
+For "ab":
+val = {"sab"} (first call)
+val = {"asb"} (second call)
+val = {"abs"} (third call)
+temp becomes {"sab", "asb", "abs"}
+At the top level, you combine both:
+Final result: {"sba", "bsa", "bas", "sab", "asb", "abs"}
+```
+
+### Time and Space Complexity
+
+- **Time Complexity:**  
+  - There are `n!` permutations for a string of length `n`.
+  - Each permutation takes `O(n)` time to build.
+  - **Total:** `O(n! * n)`
+
+- **Space Complexity:**  
+  - Storing all permutations: `O(n! * n)`
+  - Call stack: up to `O(n)` deep.
+
+
 
 ---
 ---
+
 ## Summary Table
 
 | Function      | What it does                                              | Output Type         |

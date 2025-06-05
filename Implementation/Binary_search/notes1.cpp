@@ -97,11 +97,16 @@ vector<int> targetIndices(vector<int>& nums, int target) {
             }
         }
 
+        // why are we putting that down condition right < nums.size() is beacuse sometimes after exting the loop
+        // left pointer goes equals to arr.size() and when we access it it will give run time error.
         if( right < nums.size() && nums[right] == target){
             upper_bound = right;
         }
         return upper_bound;
     }
+
+    // so for that what we can do is push the index from lowerbound to upper bound both inclusive 
+    // so all that index will have values equal to target
 
     int main(){
         vector<int> arr { 1, 2, 2,2, 3, 5};

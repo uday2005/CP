@@ -231,5 +231,85 @@ void subsets3(int index, vector<int>& nums, vector<int>& current, vector<vector<
     subsets(i + 1, nums, current, result);
     current.pop_back();
     }
+}
 
+void permuatations(string p , string up){
+    if(up.empty()){
+        cout << p << " ";
+        return;
+    }
+
+    char ch = up[0];
+
+    for(int i = 0 ; i<= p.size(); i++){
+        string f = p.substr(0,i);
+        string s = p.substr(i,p.length());
+
+        permuatations(f+ch+s,up.substr(1));
+    }
+}
+
+vector<string> permuatations2(string p , string up){
+ 
+    if(up.empty()){
+        // vector<string> temp2;
+        // temp2.push_back(p);
+        // return temp2;
+        if(!p.empty()){
+            return {p};
+        }
+        else{
+            return {};
+        }
+
+    }
+
+    char ch = up[0];
+    
+    
+   vector<string> temp;
+    for(int i = 0 ; i<= p.size(); i++){
+        string f = p.substr(0,i);
+        string s = p.substr(i,p.length());
+
+        vector<string> val  = permuatations2(f+ch+s,up.substr(1));
+        temp.insert(temp.end(),val.begin() , val.end());
+    }
+    return temp;
+
+
+}
+
+// when we want to know how many subsets that will be equivalent of how many recursion call
+
+
+int permuatations3(string p , string up){
+    if(up.empty()){
+        return 1;
+    }
+
+    char ch = up[0];
+
+    int count = 0;
+    for(int i = 0 ; i<= p.size(); i++){
+        string f = p.substr(0,i);
+        string s = p.substr(i,p.length());
+
+        count += permuatations3(f+ch+s,up.substr(1));
+    }
+    return count;
+}
+// anouther way of doing this
+
+void permutations3(string p, string up, int& count) {
+    if (up.empty()) {
+        count++;
+        return;
+    }
+    char ch = up[0];
+    for (int i = 0; i <= p.size(); i++) {
+        string f = p.substr(0, i);
+        string s = p.substr(i, p.length());
+        permutations3(f + ch + s, up.substr(1), count);
+    }
 }
