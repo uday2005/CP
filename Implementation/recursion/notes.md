@@ -521,6 +521,62 @@ Final result: {"sba", "bsa", "bas", "sab", "asb", "abs"}
 ---
 ---
 
+```
+search()  // permutation = ""
+│
+├─ i=0: choose 'a' → permutation = "a"
+│   └─ search()
+│       ├─ i=0: already chosen
+│       ├─ i=1: choose 'b' → permutation = "ab"
+│       │   └─ search()
+│       │       ├─ i=0: already chosen
+│       │       ├─ i=1: already chosen
+│       │       ├─ i=2: choose 'c' → permutation = "abc"
+│       │       │   └─ search() → print "abc"
+│       │       └─ backtrack to "ab"
+│       ├─ i=2: choose 'c' → permutation = "ac"
+│       │   └─ search()
+│       │       ├─ i=0: already chosen
+│       │       ├─ i=1: choose 'b' → permutation = "acb"
+│       │       │   └─ search() → print "acb"
+│       │       └─ i=2: already chosen
+│       └─ backtrack to "a"
+│
+├─ i=1: choose 'b' → permutation = "b"
+│   └─ search()
+│       ├─ i=0: choose 'a' → permutation = "ba"
+│       │   └─ search()
+│       │       ├─ i=0: already chosen
+│       │       ├─ i=1: already chosen
+│       │       ├─ i=2: choose 'c' → permutation = "bac"
+│       │       │   └─ search() → print "bac"
+│       │       └─ backtrack to "ba"
+│       ├─ i=1: already chosen
+│       ├─ i=2: choose 'c' → permutation = "bc"
+│       │   └─ search()
+│       │       ├─ i=0: choose 'a' → permutation = "bca"
+│       │       │   └─ search() → print "bca"
+│       │       ├─ i=1: already chosen
+│       │       └─ i=2: already chosen
+│       └─ backtrack to "b"
+│
+├─ i=2: choose 'c' → permutation = "c"
+│   └─ search()
+│       ├─ i=0: choose 'a' → permutation = "ca"
+│       │   └─ search()
+│       │       ├─ i=0: already chosen
+│       │       ├─ i=1: choose 'b' → permutation = "cab"
+│       │       │   └─ search() → print "cab"
+│       │       └─ i=2: already chosen
+│       ├─ i=1: choose 'b' → permutation = "cb"
+│       │   └─ search()
+│       │       ├─ i=0: choose 'a' → permutation = "cba"
+│       │       │   └─ search() → print "cba"
+│       │       ├─ i=1: already chosen
+│       │       └─ i=2: already chosen
+│       └─ i=2: already chosen
+```
+
 ## Summary Table
 
 | Function      | What it does                                              | Output Type         |

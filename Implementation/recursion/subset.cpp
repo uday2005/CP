@@ -126,29 +126,6 @@ vector<string> subser2(string p, string  up){
 }
 
 
-int main(){
-    string p = " ";
-    string up = "baacde";
-
-    string you = "bascappleappfd";
-
-    // skip(p,up);
-
-
-    // cout << skip3(you,"apple");
-    // cout << skip4(you , "app" ,"apple");
-
-    vector<string> result;
-    subser1("", "abc", result);
-
-    for(auto x : result){
-        cout << x << " ";
-    }
-    cout << endl;
-    
-    subser(" " ,"man");
-}
-
 
 // one more method which can be used to print the subset is th bit masking like
 // we know that the number of the subsets is equal to the pow(2,n)
@@ -312,4 +289,114 @@ void permutations3(string p, string up, int& count) {
         string s = p.substr(i, p.length());
         permutations3(f + ch + s, up.substr(1), count);
     }
+}
+
+// if the array is of num
+
+void permute(vector<int>& nums, int idx) {
+    if(idx == nums.size()) {
+        // process permutation
+        return;
+    }
+    for(int i = idx; i < nums.size(); i++) {
+        swap(nums[i], nums[idx]);
+        permute(nums, idx + 1);
+        swap(nums[i], nums[idx]);
+    }
+}
+
+void generate_Permutations(string &text, int left, int right) {
+    if (left == right) {
+        cout << text << endl; // Process the permutation
+        return;
+    }
+    for (int i = left; i <= right; i++) {
+        swap(text[left], text[i]);
+        generate_Permutations(text, left + 1, right);
+        swap(text[left], text[i]); // Backtrack
+    }
+}
+
+
+
+string input = "abc";                   // The string to permute
+vector<bool> chosen(input.size(), false); // Tracks which chars are used
+string permutation;                       // Current permutation being built
+
+void search() {
+    if (permutation.size() == input.size()) {
+        cout << permutation << endl;      // Process permutation (print)
+    } else {
+        for (int i = 0; i < input.size(); i++) {
+            if (chosen[i]) continue;      // Skip if already used
+            chosen[i] = true;
+            permutation.push_back(input[i]);
+            search();
+            chosen[i] = false;            // Backtrack
+            permutation.pop_back();
+        }
+    }
+}
+
+
+void perm_genrate_mob_no(string p , string up){
+
+    if(up.empty()){
+        cout << p << " ";
+        return;
+    }
+
+
+    int digit = up[0]-'0';
+    for(int i = (digit -1)*3;i<digit * 3;i++){
+        char ch = (char)('a'+i);
+        perm_genrate_mob_no(p+ch , up.substr(1));
+    }
+    // for 1 it will be a b c
+}
+
+vector<string> perm_genrate_mob_no2(string p , string up){
+
+    if(up.empty()){
+        return {p};
+    }
+
+
+    int digit = up[0]-'0';
+
+    vector<string> temp; // creating local variable
+    for(int i = (digit -1)*3;i<digit * 3;i++){
+        char ch = (char)('a'+i);
+        vector<string> val = perm_genrate_mob_no2(p+ch , up.substr(1));
+        temp.insert(temp.end(), val.begin() , val.end());
+    }
+    return temp;
+    // for 1 it will be a b c
+}
+
+
+
+int main(){
+    string p = " ";
+    string up = "baacde";
+
+    string you = "bascappleappfd";
+
+    // skip(p,up);
+
+
+    // cout << skip3(you,"apple");
+    // cout << skip4(you , "app" ,"apple");
+
+    // vector<string> result;
+    // subser1("", "abc", result);
+
+    // for(auto x : result){
+    //     cout << x << " ";
+    // }
+    // cout << endl;
+    
+    // subser(" " ,"man");
+
+    perm_genrate_mob_no(" ","12");
 }
